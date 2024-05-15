@@ -14,6 +14,15 @@ void apply_threshold(float *img, int w, int h, int T) {
     (void)T;
 
     // TODO: Implement me!
+    for (int i = 0; i < w * h ; i++){ // loop stops when i >= area of the image
+
+    if (img[i] <= T){ //if pixel <= Threshold 
+        img[i] = 0; //black
+    }
+    else{
+        img[i] = 255; //white
+    }
+    } 
 }
 
 void scale_image(float *result, const float *img, int w, int h) {

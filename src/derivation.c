@@ -18,6 +18,19 @@ void gradient_magnitude(float *result, const float *d_x, const float *d_y,
     (void)h;
 
     // TODO: Implement me!
+    for (int x = 0; x < w; x++){ //stops when width = x
+        for (int y = 0; y < h; y++){ //stops when height = y
+
+        float dx = d_x[x + y * w]; //get dx
+        float dy = d_y[x + y * w]; //get dy
+
+        float square = dx * dx + dy * dy; //dx2 + dy2
+        float value = sqrt(square); //squareroot
+
+        result[x+ y * w] = value; //storing the grad into the result
+
+        }
+    }
 }
 
 const float sobel_x[9] = {1, 0, -1, 2, 0, -2, 1, 0, -1};

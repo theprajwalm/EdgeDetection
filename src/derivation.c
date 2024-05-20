@@ -28,7 +28,6 @@ void gradient_magnitude(float *result, const float *d_x, const float *d_y,
         float value = sqrt(square); //squareroot
 
         result[x+ y * w] = value; //storing the grad into the result
-
         }
     }
 }

@@ -23,6 +23,7 @@ void apply_threshold(float *img, int w, int h, int T) {
         img[i] = 255; //white
     }
     } 
+
 }
 
 void scale_image(float *result, const float *img, int w, int h) {
@@ -37,6 +38,7 @@ void scale_image(float *result, const float *img, int w, int h) {
 
     for (int i = 1; i < w * h; i++) //from 1 to last pixel value
     {
+        //finding out the max and min
         if (img[i] > max) //if greater than maximum
         {
             max = img[i]; //new maximum
@@ -45,16 +47,19 @@ void scale_image(float *result, const float *img, int w, int h) {
         {
             min = img[i]; //new minimum
         }
-    }
+    
+        //applying the condition and the formula
         if (max == min) //if max = min
-    {
-        result[i] = 0; //outputs black
-    }
-    else
-    {
-        result[i] = ((img[i] - min) / (max - min)) * 255 ;//scaled gray-scale values
-    }
+        {
+            result[i] = 0; //outputs black
+        }
+        else
+        {
+            result[i] = ((img[i] - min) / (max - min)) * 255 ;//scaled gray-scale values
+        }
 
+    }
+}
 
 float get_pixel_value(const float *img, int w, int h, int x, int y) {
     (void)img;

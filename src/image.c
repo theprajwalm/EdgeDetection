@@ -48,19 +48,23 @@ void scale_image(float *result, const float *img, int w, int h) {
         }
     }
 
-for (int i = 0; i < w * h; i++)
-    {
+
     if (max == min) // if max = min
     {
-        
+        for (int i = 0; i < w * h; i++)
+        {
             result[i] = 0; // black
+        }
     }
     else
     {
-        
-        result[i] = ((img[i] - min) / (max - min)) * 255; // Scaled gray-scale values
+        for (int i = 0; i < w * h; i++)
+        {
+            result[i] = ((img[i] - min) / (max - min)) * 255; // Scaled gray-scale values
+        }
     }
 }
+
 
 
 float get_pixel_value(const float *img, int w, int h, int x, int y) {

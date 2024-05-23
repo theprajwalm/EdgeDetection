@@ -75,7 +75,21 @@ float get_pixel_value(const float *img, int w, int h, int x, int y) {
     (void)y;
 
     // TODO: Implement me!
-    
+    if (x < 0) {
+        x = -x - 1;
+    } else if (x >= w) {
+        x = 2 * w - x - 1;
+    }
+
+    // Handle vertical mirroring
+    if (y < 0) {
+        y = -y - 1;
+    } else if (y >= h) {
+        y = 2 * h - y - 1;
+    }
+
+    // Return the pixel value at the mirrored coordinates
+    return img[y * w + x];
 
     return 0;
 }

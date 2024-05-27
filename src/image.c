@@ -190,4 +190,25 @@ void write_image_to_file(const float *img, int w, int h, const char *filename) {
     (void)filename;
 
     // TODO: Implement me!
-}
+    FILE *file = fopen(filename, "w"); //opening a file
+
+    if (!file){
+        return;
+    }
+    fprintf(file, "P2\n"); //writing the format of the image
+    fprintf(file, "%d %d\n", w, h); //writing the width and height
+    fprintf(file, "255\n"); //writing maximum pixel in our case 255
+    for (int  y = 0; y < h; y++)
+    {
+        for (int x = 0; x < w; x++)
+        {
+            int pixel = (int)img[y * w + x];
+            if (pixel < 0) pixel = 0;
+            if (pixel > 255) pixel = 255;
+            fprintf(file, "%d ", pixel);
+        }
+        fprintf(file, "\n");
+        }
+        
+        fclose(file);
+    }

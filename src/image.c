@@ -98,14 +98,26 @@ float *array_init(int size) {
     (void)size;
 
     // TODO: Implement me!
-
-    return NULL;
+    if(size <= 0){ // if size is negative
+        return NULL;
+    }
+    float *array = (float *)malloc(size * sizeof(float)); // allocating memory in Heap
+    if (array == 0) // if array is zero 
+    {
+        return NULL;
+    }
+    return array;
 }
 
 void array_destroy(float *m) {
     (void)m;
 
     // TODO: Implement me!
+    if (m) //if something is there in m
+    {
+        free(m);
+    }
+    
 }
 
 float *read_image_from_file(const char *filename, int *w, int *h) {
@@ -114,8 +126,61 @@ float *read_image_from_file(const char *filename, int *w, int *h) {
     (void)h;
 
     // TODO: Implement me!
+    FILE *file = fopen(filename, "rb"); //opening a file
 
+    if (file == 0){ //if file is empty
     return NULL;
+    }
+
+    //checking the format of a file
+    char format[3]; //storing format 
+    if (fscanf(file, "%2s",format) != 0 || strcmp(format, "P2") != 0) // if unsucessfull reading or format not equal to P2 then
+    {
+        fclose(file); //close file
+        return NULL; //Error in header
+    }
+    
+    //to skip comments in header
+    char ch;
+    while ((ch = fgetc(file)) == '#') 
+    {
+        while (fgetc(file) != '\n'); // Skip  entire  line
+    }
+    ungetc(ch, file); // can be skipped
+
+    //reading the width and the height 
+    if (fscanf(file, "%d %d", w, h) != 2 || *w <= 0 || *h <= 0)
+    {
+        fclose(file);
+        return NULL;
+    }
+
+    // reading the maximum value
+    int maximum;
+    if (fscanf(file, "%d", &maximum) != 1 || maximum != 255) {
+        fclose(file);
+        return NULL; 
+    }
+
+    int size = (*w) * (*h); //height x width
+    float *img = array_init(size); //allocating memory to store the img
+    if (img == 0){
+        fclose(file);
+        return NULL; 
+    }
+
+    for (int i = 0; i < size; i++)
+    {
+        int pix;
+        if (fscanf(file, "%d", &pix) == 0 || pix < 0 || pix > 255){
+            fclose(file);
+            return NULL;
+        }
+        img[i] = (float) pix; //storing the file pixel to img in heap
+    }
+    fclose(file); //closing the opened file.
+    return img; // returning the image
+
 }
 
 void write_image_to_file(const float *img, int w, int h, const char *filename) {

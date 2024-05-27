@@ -25,6 +25,14 @@ int main(int const argc, char **const argv) {
      * scope of this function.
      */
     // TODO: Implement me!
+       int w, h;
+       float *original_img = read_image_from_file(image_file_name, &w, &h);
+       if (!original_img) 
+       {
+              printf("Failed to read input image.\n");
+              return 1;
+       }
+
 
     /**
      * Blur the image by using convolve with the given Gaussian kernel matrix
@@ -34,6 +42,10 @@ int main(int const argc, char **const argv) {
      * Afterwards, write the resulting blurred image to the file out_blur.pgm.
      */
     // TODO: Implement me!
+       float *blurred_img = array_init(w * h);
+       convolve(blurred_img, original_img, w, h, gaussian_k, gaussian_w, gaussian_h);
+       write_image_to_file(blurred_img, w, h, "out_blur.pgm");
+
 
     /**
      * Compute the derivation of the blurred image computed above in both x and
@@ -43,6 +55,20 @@ int main(int const argc, char **const argv) {
      * and out_d_y.pgm respectively.
      */
     // TODO: Implement me!
+        float *d_x = array_init(w * h);
+    float *d_y = array_init(w * h);
+
+    //derivation_x_direction (d_x, blurred_img, w, h);
+    derivation_x_direction (d_x, blurred_img, w, h);
+    derivation_y_direction (d_y, blurred_img, w, h);   
+
+    scale_image(d_x, d_x, w, h);
+    scale_image(d_y, d_y, w, h);
+
+
+    write_image_to_file(d_x, w, h, "out_d_x.pgm");
+    write_image_to_file(d_y, w, h, "out_d_y.pgm");
+
 
     /**
      * Compute the gradient magnitude of the blurred image by using the
@@ -51,14 +77,27 @@ int main(int const argc, char **const argv) {
      * Afterwards, rescale the result and write it to out_gm.pgm.
      */
     // TODO: Implement me!
+       float *gradient_magnitude_img = array_init(w * h);
+    //gradient_magnitude (gradient_magnitude_img, d_x, d_y, w, h);
+       gradient_magnitude (gradient_magnitude_img, d_x, d_y, w, h);
+       scale_image(gradient_magnitude_img, gradient_magnitude_img, w, h);
+       write_image_to_file(gradient_magnitude_img, w, h, "out_gm.pgm");
 
     /**
      * Apply the threshold to the gradient magnitude.
      * Then write the result to the file out_edges.pgm.
      */
     // TODO: Implement me!
+        apply_threshold(gradient_magnitude_img, threshold, w, h);
+       write_image_to_file(gradient_magnitude_img, w, h, "out_edges.pgm");
+
 
     /**
      * Remember to free dynamically allocated memory when it is no longer used!
      */
+    array_destroy(original_img);
+    array_destroy(blurred_img);
+    array_destroy(d_x);
+    array_destroy(d_y);
+    array_destroy(gradient_magnitude_img);
 }

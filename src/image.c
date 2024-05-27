@@ -126,7 +126,7 @@ float *read_image_from_file(const char *filename, int *w, int *h) {
     (void)h;
 
     // TODO: Implement me!
-    FILE *file = fopen(filename, "rb"); //opening a file
+    FILE *file = fopen(filename, "r"); //opening a file
 
     if (file == 0){ //if file is empty
     return NULL;
@@ -134,7 +134,7 @@ float *read_image_from_file(const char *filename, int *w, int *h) {
 
     //checking the format of a file
     char format[3]; //storing format 
-    if (fscanf(file, "%2s",format) != 0 || strcmp(format, "P2") != 0) // if unsucessfull reading or format not equal to P2 then
+    if (fscanf(file, "%2s",format) != 1 || strcmp(format, "P2") != 0) // if unsucessfull reading or format not equal to P2 then
     {
         fclose(file); //close file
         return NULL; //Error in header
@@ -172,7 +172,8 @@ float *read_image_from_file(const char *filename, int *w, int *h) {
     for (int i = 0; i < size; i++)
     {
         int pix;
-        if (fscanf(file, "%d", &pix) == 0 || pix < 0 || pix > 255){
+        if (fscanf(file, "%d", &pix) != 1 || pix < 0 || pix > 255){
+            array_destroy(img);
             fclose(file);
             return NULL;
         }
@@ -198,17 +199,10 @@ void write_image_to_file(const float *img, int w, int h, const char *filename) {
     fprintf(file, "P2\n"); //writing the format of the image
     fprintf(file, "%d %d\n", w, h); //writing the width and height
     fprintf(file, "255\n"); //writing maximum pixel in our case 255
-    for (int  y = 0; y < h; y++)
-    {
-        for (int x = 0; x < w; x++)
-        {
-            int pixel = (int)img[y * w + x];
-            if (pixel < 0) pixel = 0;
-            if (pixel > 255) pixel = 255;
-            fprintf(file, "%d ", pixel);
-        }
-        fprintf(file, "\n");
-        }
+    
+     for (int i = 0; i < w * h; ++i) {
+        fprintf(file, "%d\n", (int)img[i]);
+    }
         
         fclose(file);
     }

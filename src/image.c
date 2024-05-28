@@ -140,13 +140,13 @@ float *read_image_from_file(const char *filename, int *w, int *h) {
         return NULL; //Error in header
     }
     
-    //to skip comments in header
-    char ch;
-    while ((ch = fgetc(file)) == '#') 
-    {
-        while (fgetc(file) != '\n'); // Skip  entire  line
-    }
-    ungetc(ch, file); // can be skipped
+    // //to skip comments in header
+    // char ch;
+    // while ((ch = fgetc(file)) == '#') 
+    // {
+    //     while (fgetc(file) != '\n'); // Skip  entire  line
+    // }
+    // ungetc(ch, file); // can be skipped
 
     //reading the width and the height 
     if (fscanf(file, "%d %d", w, h) != 2 || *w <= 0 || *h <= 0)

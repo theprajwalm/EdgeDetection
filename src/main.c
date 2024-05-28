@@ -39,9 +39,9 @@ int main(int const argc, char **const argv) {
      * Afterwards, write the resulting blurred image to the file out_blur.pgm.
      */
     // TODO: Implement me!
-       float *blurred_img = array_init(w * h);
-       convolve(blurred_img, original_img, w, h, gaussian_k, gaussian_w, gaussian_h);
-       write_image_to_file(blurred_img, w, h, "out_blur.pgm");
+       float *blurredimage = array_init(w * h);
+       convolve(blurredimage, original_img, w, h, gaussian_k, gaussian_w, gaussian_h);
+       write_image_to_file(blurredimage, w, h, "out_blur.pgm");
 
 
     /**
@@ -56,8 +56,8 @@ int main(int const argc, char **const argv) {
    float *d_y = array_init(w * h);
 
     //derivation_x_direction (d_x, blurred_img, w, h);
-    derivation_x_direction (d_x, blurred_img, w, h);
-    derivation_y_direction (d_y, blurred_img, w, h);  
+    derivation_x_direction (d_x, blurredimage, w, h);
+    derivation_y_direction (d_y, blurredimage, w, h);  
 
     float *s_x = array_init(w * h);
     float *s_y = array_init(w * h);
@@ -100,7 +100,7 @@ int main(int const argc, char **const argv) {
      * Remember to free dynamically allocated memory when it is no longer used!
      */
     array_destroy(original_img);
-    array_destroy(blurred_img);
+    array_destroy(blurredimage);
     array_destroy(d_x);
     array_destroy(d_y);
     array_destroy(gradient_magnitude_img);

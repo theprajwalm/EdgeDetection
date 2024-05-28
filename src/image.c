@@ -8,10 +8,10 @@
 #include <string.h>
 
 void apply_threshold(float *img, int w, int h, int T) {
-    (void)img;
-    (void)w;
-    (void)h;
-    (void)T;
+    // (void)img;
+    // (void)w;
+    // (void)h;
+    // (void)T;
 
     // TODO: Implement me!
     for (int i = 0; i < w * h ; i++){ // loop stops when i >= area of the image
@@ -27,10 +27,10 @@ void apply_threshold(float *img, int w, int h, int T) {
 }
 
 void scale_image(float *result, const float *img, int w, int h) {
-    (void)result;
-    (void)img;
-    (void)w;
-    (void)h;
+    // (void)result;
+    // (void)img;
+    // (void)w;
+    // (void)h;
 
     // TODO: Implement me!
     float max = img[0]; //intial maximum value
@@ -68,11 +68,11 @@ void scale_image(float *result, const float *img, int w, int h) {
 
 
 float get_pixel_value(const float *img, int w, int h, int x, int y) {
-    (void)img;
-    (void)w;
-    (void)h;
-    (void)x;
-    (void)y;
+    // (void)img;
+    // (void)w;
+    // (void)h;
+    // (void)x;
+    // (void)y;
 
     // TODO: Implement me!
     if (x < 0) {
@@ -121,9 +121,9 @@ void array_destroy(float *m) {
 }
 
 float *read_image_from_file(const char *filename, int *w, int *h) {
-    (void)filename;
-    (void)w;
-    (void)h;
+    // (void)filename;
+    // (void)w;
+    // (void)h;
 
     // TODO: Implement me!
     FILE *file = fopen(filename, "r"); //opening a file
@@ -140,15 +140,15 @@ float *read_image_from_file(const char *filename, int *w, int *h) {
         return NULL; //Error in header
     }
     
-    // //to skip comments in header
-    // char ch;
-    // while ((ch = fgetc(file)) == '#') 
-    // {
-    //     while (fgetc(file) != '\n'); // Skip  entire  line
-    // }
-    // ungetc(ch, file); // can be skipped
+    //to skip comments in header
+    char ch;
+    while ((ch = fgetc(file)) == '#') 
+    {
+        while (fgetc(file) != '\n'); // Skip  entire  line
+    }
+    ungetc(ch, file); // can be skipped
 
-    //reading the width and the height 
+    // reading the width and the height 
     if (fscanf(file, "%d %d", w, h) != 2 || *w <= 0 || *h <= 0)
     {
         fclose(file);
@@ -192,10 +192,10 @@ float *read_image_from_file(const char *filename, int *w, int *h) {
 }
 
 void write_image_to_file(const float *img, int w, int h, const char *filename) {
-    (void)img;
-    (void)w;
-    (void)h;
-    (void)filename;
+    // (void)img;
+    // (void)w;
+    // (void)h;
+    // (void)filename;
 
     // TODO: Implement me!
     FILE *file = fopen(filename, "w"); //opening a file

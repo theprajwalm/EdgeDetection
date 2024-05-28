@@ -36,6 +36,7 @@ void scale_image(float *result, const float *img, int w, int h) {
     float max = img[0]; //intial maximum value
     float min = img[0]; //intial minimum value
 
+
     for (int i = 1; i < w * h; i++) //from 1 to last pixel value
     {
         if (img[i] > max) //if greater than maximum

@@ -179,6 +179,13 @@ float *read_image_from_file(const char *filename, int *w, int *h) {
         }
         img[i] = (float) pix; //storing the file pixel to img in heap
     }
+    int extra_check;
+    if (fscanf(file, "%d", &extra_check) == 1) {
+        array_destroy(img);
+        fclose(file);
+        return NULL;
+    }
+
     fclose(file); //closing the opened file.
     return img; // returning the image
 

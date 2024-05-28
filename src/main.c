@@ -32,8 +32,6 @@ int main(int const argc, char **const argv) {
               printf("Failed to read input image.\n");
               return 1;
        }
-
-
     /**
      * Blur the image by using convolve with the given Gaussian kernel matrix
      * gaussian_k (defined in gaussian_kernel.h). The width of the matrix is
@@ -55,8 +53,8 @@ int main(int const argc, char **const argv) {
      * and out_d_y.pgm respectively.
      */
     // TODO: Implement me!
-        float *d_x = array_init(w * h);
-    float *d_y = array_init(w * h);
+   float *d_x = array_init(w * h);
+   float *d_y = array_init(w * h);
 
     //derivation_x_direction (d_x, blurred_img, w, h);
     derivation_x_direction (d_x, blurred_img, w, h);
@@ -77,9 +75,9 @@ int main(int const argc, char **const argv) {
      * Afterwards, rescale the result and write it to out_gm.pgm.
      */
     // TODO: Implement me!
-       float *gradient_magnitude_img = array_init(w * h);
+      float *gradient_magnitude_img = array_init(w * h);
     //gradient_magnitude (gradient_magnitude_img, d_x, d_y, w, h);
-       gradient_magnitude (gradient_magnitude_img, d_x, d_y, w, h);
+      gradient_magnitude (gradient_magnitude_img, d_x, d_y, w, h);
        scale_image(gradient_magnitude_img, gradient_magnitude_img, w, h);
        write_image_to_file(gradient_magnitude_img, w, h, "out_gm.pgm");
 

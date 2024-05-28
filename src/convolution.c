@@ -6,13 +6,13 @@
 
 void convolve(float *result, const float *img, int w, int h,
               const float *matrix, int w_m, int h_m) {
-    (void)result;
-    (void)img;
-    (void)w;
-    (void)h;
-    (void)matrix;
-    (void)w_m;
-    (void)h_m;
+    // (void)result;
+    // (void)img;
+    // (void)w;
+    // (void)h;
+    // (void)matrix;
+    // (void)w_m;
+    // (void)h_m;
 
     // TODO: Implement me!
     int k_half_w = w_m / 2;

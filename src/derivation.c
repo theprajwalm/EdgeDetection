@@ -11,11 +11,11 @@
 
 void gradient_magnitude(float *result, const float *d_x, const float *d_y,
                         int w, int h) {
-    (void)result;
-    (void)d_x;
-    (void)d_y;
-    (void)w;
-    (void)h;
+    // (void)result;
+    // (void)d_x;
+    // (void)d_y;
+    // (void)w;
+    // (void)h;
 
     // TODO: Implement me!
     for (int x = 0; x < w; x++){ //stops when width = x
